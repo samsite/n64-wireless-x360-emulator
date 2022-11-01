@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.20.2)
 project(n64-controller)
 
 ###############################################################################
@@ -43,18 +43,28 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/external/ViGEmClient)
 #
 
 set(SOURCES
-	${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/Controller.h
+    ${CMAKE_CURRENT_LIST_DIR}/src/Controller.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/ControllerDetector.h
+    ${CMAKE_CURRENT_LIST_DIR}/src/ControllerDetector.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/Utils.h
+    ${CMAKE_CURRENT_LIST_DIR}/src/Utils.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/VigemWrapper.h
+    ${CMAKE_CURRENT_LIST_DIR}/src/VigemWrapper.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/DInputWrapper.h
+    ${CMAKE_CURRENT_LIST_DIR}/src/DInputWrapper.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME}
-	PRIVATE
-		${DIRECTINPUT_LIBRARIES}
-		ViGEmClient
+    PRIVATE
+        ${DIRECTINPUT_LIBRARIES}
+        ViGEmClient
 )
 target_include_directories(${PROJECT_NAME}
-	PRIVATE
-		${DIRECTINPUT_INCLUDE_DIR}
+    PRIVATE
+        ${DIRECTINPUT_INCLUDE_DIR}
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
